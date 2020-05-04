@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "baseUrl": ".",
+        "paths": {
+            "@algorithms/*": ["src/algorithms/*"],
+            "@data-structures/*": ["src/data-structures/*"],
+            "@design-patterns/*": ["src/design-patterns/*"]
+        }
+    }
+}
