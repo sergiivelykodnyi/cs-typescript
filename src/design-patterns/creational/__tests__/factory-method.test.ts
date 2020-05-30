@@ -1,43 +1,35 @@
-import {
-    SimpleLogistics,
-    RoadLogistics,
-    SeaLogistics,
-} from "../factory-method";
+import { SimpleFactory, Factory1, Factory2 } from "../factory-method";
 
 describe("Factory Method", () => {
-    const truckData = {
-        model: "MAC",
-        loadCapacity: 8_000,
-    };
-    const shipData = {
-        model: "STX",
-        loadCapacity: 100_000,
+    const itemData = {
+        value1: "string",
+        value2: 10_000,
     };
 
-    test("RoadLogistics", () => {
-        const factory = new RoadLogistics();
-        const truck = factory.createTransport(truckData);
+    test("Factory 1", () => {
+        const factory = new Factory1();
+        const item = factory.createItem(itemData);
 
-        expect(truck.toArray()).toEqual(["truck", "MAC", 8_000]);
-        expect(truck.toString()).toEqual("truck, MAC, 8000");
+        expect(item.toArray()).toEqual(["type1", "string", 10_000]);
+        expect(item.toString()).toEqual("type1, string, 10000");
     });
 
-    test("SeaLogistics", () => {
-        const factory = new SeaLogistics();
-        const ship = factory.createTransport(shipData);
+    test("Factory 2", () => {
+        const factory = new Factory2();
+        const item = factory.createItem(itemData);
 
-        expect(ship.toArray()).toEqual(["ship", "STX", 100_000]);
-        expect(ship.toString()).toEqual("ship, STX, 100000");
+        expect(item.toArray()).toEqual(["type2", "string", 10_000]);
+        expect(item.toString()).toEqual("type2, string, 10000");
     });
 
     test("SimpleLogistics", () => {
-        const factory = new SimpleLogistics();
-        const truck = factory.createTransport("truck", truckData);
-        const ship = factory.createTransport("ship", shipData);
+        const factory = new SimpleFactory();
+        const item1 = factory.createItem("type1", itemData);
+        const item2 = factory.createItem("type2", itemData);
 
-        expect(truck.toArray()).toEqual(["truck", "MAC", 8_000]);
-        expect(truck.toString()).toEqual("truck, MAC, 8000");
-        expect(ship.toArray()).toEqual(["ship", "STX", 100_000]);
-        expect(ship.toString()).toEqual("ship, STX, 100000");
+        expect(item1.toArray()).toEqual(["type1", "string", 10_000]);
+        expect(item1.toString()).toEqual("type1, string, 10000");
+        expect(item2.toArray()).toEqual(["type2", "string", 10_000]);
+        expect(item2.toString()).toEqual("type2, string, 10000");
     });
 });

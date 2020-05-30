@@ -1,28 +1,28 @@
-type ITransType = "truck" | "ship";
+type IItemType = "type1" | "type2";
 
-interface ITransData {
-    model: string;
-    loadCapacity: number;
+interface IItemData {
+    value1: string;
+    value2: number;
 }
 
-export interface ITrans extends ITransData {
-    type: ITransType;
-    toArray(): [ITransType, string, number];
+export interface IItem extends IItemData {
+    type: IItemType;
+    toArray(): [IItemType, string, number];
     toString(): string;
 }
 
-export class Trans implements ITrans {
-    type: ITransType;
-    model: string;
-    loadCapacity: number;
+export class Item implements IItem {
+    type: IItemType;
+    value1: string;
+    value2: number;
 
-    constructor(data: ITransData) {
-        this.model = data.model;
-        this.loadCapacity = data.loadCapacity;
+    constructor(data: IItemData) {
+        this.value1 = data.value1;
+        this.value2 = data.value2;
     }
 
-    toArray(): [ITransType, string, number] {
-        return [this.type, this.model, this.loadCapacity];
+    toArray(): [IItemType, string, number] {
+        return [this.type, this.value1, this.value2];
     }
 
     toString() {
@@ -30,44 +30,44 @@ export class Trans implements ITrans {
     }
 }
 
-export class Truck extends Trans {
-    constructor(data: ITransData) {
+export class Item1 extends Item {
+    constructor(data: IItemData) {
         super(data);
-        this.type = "truck";
+        this.type = "type1";
     }
 }
 
-export class Ship extends Trans {
-    constructor(data: ITransData) {
+export class Item2 extends Item {
+    constructor(data: IItemData) {
         super(data);
-        this.type = "ship";
+        this.type = "type2";
     }
 }
 
-interface ILogistics {
-    createTransport(data: ITransData): ITrans;
+interface IFactory {
+    createItem(data: IItemData): IItem;
 }
 
-export class RoadLogistics implements ILogistics {
-    createTransport(data: ITransData): ITrans {
-        return new Truck(data);
+export class Factory1 implements IFactory {
+    createItem(data: IItemData): IItem {
+        return new Item1(data);
     }
 }
 
-export class SeaLogistics implements ILogistics {
-    createTransport(data: ITransData): ITrans {
-        return new Ship(data);
+export class Factory2 implements IFactory {
+    createItem(data: IItemData): IItem {
+        return new Item2(data);
     }
 }
 
-export class SimpleLogistics {
-    createTransport(type: ITransType, data: ITransData) {
-        if (type === "truck") {
-            return new Truck(data);
+export class SimpleFactory {
+    createItem(type: IItemType, data: IItemData) {
+        if (type === "type1") {
+            return new Item1(data);
         }
 
-        if (type === "ship") {
-            return new Ship(data);
+        if (type === "type2") {
+            return new Item2(data);
         }
 
         throw new Error(`${type} is wrong type of product`);
