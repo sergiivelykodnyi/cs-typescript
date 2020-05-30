@@ -1,11 +1,10 @@
 import { Singleton } from "../singleton";
 
 describe("Singleton", () => {
-    test("Factory 1", () => {
-        const itemA = Singleton.getInstance();
-        const itemB = Singleton.getInstance();
+    const itemA = Singleton.getInstance();
+    const itemB = Singleton.getInstance();
 
+    test("getInstance should return the same instances", () => {
         expect(itemA === itemB).toBe(true);
-        expect(itemA.toString()).toEqual(itemB.toString());
     });
 });
