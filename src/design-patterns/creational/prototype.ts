@@ -32,11 +32,11 @@ export class Item implements IPrototype<Item> {
 class LinkedItem {
     value: string;
 
-    constructor(value) {
+    constructor(value: string) {
         this.value = value;
     }
 
-    toString(): string {
+    toString() {
         return this.value;
     }
 }
